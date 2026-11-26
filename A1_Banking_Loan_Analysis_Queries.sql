@@ -1,0 +1,14 @@
+create schema `banking_analytics`;
+use banking_analytics;
+select * from applications;
+select count(*) as Total_Loans from applications;
+select count(loan_status) as Approved_Loans from applications where loan_status='approved';
+select count(loan_status) as Rejected_Loans from applications where loan_status='Rejected';
+select loan_status, count(*) as Applications, round(avg(loan_amount),2) as Average_Loan from applications group by loan_status order by Average_Loan desc;
+select count(*) as Applicants, round(avg(Loan_Amount),2) as avg_loan_amt, case when income_annum<300000 then 'Low_Income' when income_annum<1000000 then 'Medium_Income' else 'High_Income' end as Income_Category from applications group by Income_Category;
+select min(Loan_Amount) as Min_Loan from applications;
+select max(Loan_Amount) as Max_Loan from applications;
+select round(avg(Income_Annum),2) as Avg_Salary from applications;
+select Loan_Id, Education, Income_Annum, Loan_Amount from applications where loan_status='Approved' order by loan_amount desc limit 5; 
+select round(avg(Cibil_Score),0) as Avg_Cibil_Score, case when cibil_score>750 then 'Excellent' when cibil_score>600 then 'Good' else 'Critical' end as Cibil_Score_Category from applications group by Cibil_Score_Category;
+select Income_Annum, count(*) AS Total_Applicants, round(AVG(Loan_Amount), 2) AS Average_Loan from applications group by Income_Annum having avg(Income_Annum) > 1000000;
